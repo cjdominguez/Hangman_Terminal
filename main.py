@@ -2,6 +2,6 @@
 
 """"
 
-hangßgman first push
+hangman first push
 
 """
