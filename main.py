@@ -27,7 +27,8 @@ def pick_word():
         print(chosen_word)
         return chosen_word
 
-#aaa
+
+# aaa
 def clean_input():
     """
     clean the input string by lower-casing the input
@@ -50,7 +51,7 @@ def check_input():
     counter = 0
     for letter in secret_word:
         if letter == user_char:
-            counter + 1
+            counter += 1
     if counter <= 0:
         return False
 
@@ -65,6 +66,10 @@ def display_rules():
           "2. The word will be reveled at the end, WIN or lose.\n"
           "3. any character/input not in the alphabet is INVALID"
           "\n\n")
+
+
+def gameplay():
+    pass
 
 
 display_rules()
