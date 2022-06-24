@@ -1,5 +1,5 @@
 """"
-
+Christian Dominguez
 hangman first push √
 add read me file (uml included)
 create basic structure
@@ -13,67 +13,106 @@ to do:
 """
 import random
 
+HIDDEN_WORDS = ["purple", "orange", "family", "apples", "banana"]
+chosen_word = random.choice(HIDDEN_WORDS)
+end_of_game = False
+lives = len(chosen_word)
 
-def pick_word():
+stages = ['''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ / \  |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ /    |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+  |   |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+      |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+      |
+      |
+      |
+      |
+=========
+''']
+
+print(f"psst a hint to solution -> {chosen_word}")
+
+#spaces
+display = []
+for spaces in range(len(chosen_word)):
     """
-    this function randomly chooses a word from the word bank below and returns it
+    crucial to use len because otherwise replacing with letter is not possible 
+    """ 
+    display.append("_")
+
+while not end_of_game:
     """
-
-    HIDDEN_WORDS = ["peaches", "dinosaur", "football", "apple"]
-    random.shuffle(HIDDEN_WORDS)
-
-    for word in HIDDEN_WORDS:
-        chosen_word = word
-        print(chosen_word)
-        return chosen_word
-
-
-# aaa
-def clean_input():
+    while loop runs until end_of_game turns TRUE
     """
-    clean the input string by lower-casing the input
-    then,
-    check if input is the correct type -> A - Z characters only..
-    """
-    alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
-                'v', 'w', 'x', 'y', 'z']
-    guess_char = guess.lower()
-    if guess_char in alphabet:
-        return guess_char
-    else:
-        print("Invalid Input")
-
-
-def check_input():
-    """
-    checks if user input is correct or not
-    """
+    guess = input("Guess a letter: ").lower()
     counter = 0
-    for letter in secret_word:
-        if letter == user_char:
-            counter += 1
-    if counter <= 0:
-        return False
+    for position in range(len(chosen_word)):
+        letter = chosen_word[position]
+        if letter == guess:
+            display[position] = letter
+
+    if guess not in chosen_word:
+        lives-=1
+        if lives == 0:
+            end_of_game = True
+            print("You Lose")
+     
+    if '_' not in display:
+        end_of_game = True  
+        print("You Win.")
+
+    print(" ".join(display),f" You have {lives} left. ")
+    print(stages[lives])
 
 
-def display_rules():
-    """
-    display/explain rules to user in terminal
-    """
-    print("\nWelcome to Christian Dominguez's version of Hangman \n "
-          "The rules are simple:\n"
-          "1. You get 12 guesses\n"
-          "2. The word will be reveled at the end, WIN or lose.\n"
-          "3. any character/input not in the alphabet is INVALID"
-          "\n\n")
+
+    
 
 
-def gameplay():
-    pass
 
 
-display_rules()
-guess = input("Pick a lowercase letter to start with...remember every wrong guess is a life! \n")
-secret_word = pick_word()  # return value from pick_word function
-user_char = clean_input()  # return value from clean_input function
-check_input()
